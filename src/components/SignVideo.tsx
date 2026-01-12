@@ -99,8 +99,8 @@ export function SignVideo({
             // Unknown word or error - show fallback
             <button
               onClick={handleOpenExternal}
-              className="flex h-full w-full items-center justify-center hover:bg-muted/80 transition-colors"
-              aria-label={`${isUnknown ? 'Search for' : 'View'} ${gloss} on SignBSL`}
+              className="flex h-full w-full items-center justify-center hover:bg-muted/80 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              aria-label={`${isUnknown ? 'Search for' : 'View'} ${gloss} on SignBSL (opens in new tab)`}
             >
               <div className="text-center">
                 {isUnknown ? (
@@ -194,8 +194,8 @@ export function SignVideo({
           </p>
           <button
             onClick={handleOpenExternal}
-            className="p-0.5 sm:p-1 text-muted-foreground hover:text-foreground transition-colors shrink-0"
-            aria-label={`Open ${gloss} on SignBSL.com`}
+            className="p-2 min-h-11 min-w-11 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
+            aria-label={`Open ${gloss} on SignBSL.com (opens in new tab)`}
             title="Open on SignBSL.com"
           >
             <svg

@@ -120,6 +120,7 @@ export function GlossaryDrawer({ onSelectWord }: GlossaryDrawerProps) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
+              aria-label="Search signs"
             />
           </div>
           {search && (
@@ -136,7 +137,7 @@ export function GlossaryDrawer({ onSelectWord }: GlossaryDrawerProps) {
               <div key={category} className="rounded-lg border bg-card">
                 <button
                   onClick={() => toggleCategory(category)}
-                  className="flex w-full items-center justify-between p-3 text-left hover:bg-muted/50 transition-colors"
+                  className="flex w-full items-center justify-between p-3 text-left hover:bg-muted/50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary min-h-11"
                 >
                   <span className="font-medium text-sm">{category}</span>
                   <div className="flex items-center gap-2">
@@ -164,7 +165,7 @@ export function GlossaryDrawer({ onSelectWord }: GlossaryDrawerProps) {
                         <button
                           key={gloss}
                           onClick={() => handleSelectWord(gloss)}
-                          className="rounded-md border border-primary/20 bg-primary/5 px-2 py-1 text-xs font-mono font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                          className="rounded-md border border-primary/20 bg-primary/5 px-2 py-1 text-xs font-mono font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1"
                         >
                           {gloss}
                         </button>

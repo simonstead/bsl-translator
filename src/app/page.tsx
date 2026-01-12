@@ -49,7 +49,7 @@ export default function Home() {
           <div className="flex items-center justify-between gap-4">
             <button
               onClick={handleReset}
-              className="group text-left transition-all hover:scale-[1.02]"
+              className="group text-left transition-all hover:scale-[1.02] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
               aria-label="Reset and return to home"
             >
               <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ export default function Home() {
                   <button
                     key={sentence}
                     onClick={() => handleExampleClick(sentence)}
-                    className="rounded-full border bg-card px-3 py-1.5 text-xs sm:text-sm transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    className="rounded-full border bg-card px-3 py-1.5 text-xs sm:text-sm transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
                   >
                     {sentence}
                   </button>

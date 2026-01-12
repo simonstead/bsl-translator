@@ -30,7 +30,7 @@ export function RandomWordChips({ onSelectWord, count = 6 }: RandomWordChipsProp
         </h2>
         <button
           onClick={refreshWords}
-          className="p-1 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+          className="p-2 min-h-11 min-w-11 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           aria-label="Get new random signs"
           title="Refresh"
         >
@@ -55,7 +55,7 @@ export function RandomWordChips({ onSelectWord, count = 6 }: RandomWordChipsProp
           <button
             key={word}
             onClick={() => onSelectWord(word.toLowerCase())}
-            className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs sm:text-sm font-mono font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs sm:text-sm font-mono font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
           >
             {word}
           </button>

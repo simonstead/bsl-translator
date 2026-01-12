@@ -112,7 +112,7 @@ export function GlossSequence({ result, onReset }: GlossSequenceProps) {
                 className={`font-mono text-base sm:text-lg font-semibold uppercase tracking-wider px-2 py-1 rounded transition-all duration-200 ${
                   activeIndex === index
                     ? 'bg-primary text-primary-foreground scale-110'
-                    : 'text-primary/70 hover:text-primary'
+                    : 'text-primary hover:text-primary/80'
                 }`}
               >
                 {item.gloss}
