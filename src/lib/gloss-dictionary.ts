@@ -126,6 +126,7 @@ export const WORD_TO_GLOSS: Record<string, string> = {
   'play': 'PLAY',
   'use': 'USE',
   'call': 'CALL',
+  'language': 'LANGUAGE',
 
   // Common nouns - Food & Drink
   'coffee': 'COFFEE',
@@ -428,6 +429,7 @@ export const GLOSS_TO_VIDEO: Record<string, SignEntry> = {
   'PLAY': { gloss: 'PLAY', signbslUrl: 'https://www.signbsl.com/sign/play', ...signbslMedia('play', 'signstation') },
   'USE': { gloss: 'USE', signbslUrl: 'https://www.signbsl.com/sign/use', ...signbslMedia('use', 'signstation') },
   'CALL': { gloss: 'CALL', signbslUrl: 'https://www.signbsl.com/sign/call', ...signbslMedia('call', 'signstation') },
+  'LANGUAGE': { gloss: 'LANGUAGE', signbslUrl: 'https://www.signbsl.com/sign/language', ...signbslMedia('language', 'signstation') },
 
   // Food & Drink
   'COFFEE': { gloss: 'COFFEE', signbslUrl: 'https://www.signbsl.com/sign/coffee', ...signbslMedia('coffee', 'signstation') },
@@ -646,6 +648,20 @@ export function getSignEntry(gloss: string): SignEntry | null {
  */
 export function getSearchUrl(word: string): string {
   return `https://www.signbsl.com/search/${encodeURIComponent(word)}`;
+}
+
+/**
+ * Create an optimistic sign entry for unknown words.
+ * Attempts to construct a SignBSL URL using the standard pattern.
+ * The video may or may not exist - SignVideo handles failures gracefully.
+ */
+export function createOptimisticSignEntry(word: string): SignEntry {
+  const normalizedWord = word.toLowerCase().replace(/[^a-z0-9-]/g, '');
+  return {
+    gloss: word.toUpperCase(),
+    signbslUrl: `https://www.signbsl.com/sign/${normalizedWord}`,
+    videoUrl: `https://media.signbsl.com/videos/bsl/signstation/${normalizedWord}.mp4`,
+  };
 }
 
 /**

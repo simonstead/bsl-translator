@@ -23,7 +23,7 @@ export function SignVideo({
   const [hasError, setHasError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { gloss, signEntry, isUnknown, searchUrl } = glossResult;
+  const { gloss, signEntry, isUnknown, isOptimistic, searchUrl } = glossResult;
 
   // Construct media URLs from SignBSL
   const videoUrl = signEntry?.videoUrl;
@@ -95,49 +95,31 @@ export function SignVideo({
       <CardContent className="p-2 sm:p-3">
         {/* Video container */}
         <div className="relative mb-1.5 sm:mb-2 aspect-video w-full overflow-hidden rounded-lg bg-muted">
-          {isUnknown || !videoUrl || hasError ? (
-            // Unknown word or error - show fallback
+          {!videoUrl || hasError ? (
+            // No video URL or error loading - show fallback
             <button
               onClick={handleOpenExternal}
               className="flex h-full w-full items-center justify-center hover:bg-muted/80 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-              aria-label={`${isUnknown ? 'Search for' : 'View'} ${gloss} on SignBSL (opens in new tab)`}
+              aria-label={`Search for ${gloss} on SignBSL (opens in new tab)`}
             >
               <div className="text-center">
-                {isUnknown ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                )}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mx-auto h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
                 <p className="mt-1 text-[10px] sm:text-xs text-muted-foreground">
-                  {isUnknown ? 'Search' : 'Open SignBSL'}
+                  Search
                 </p>
               </div>
             </button>
@@ -185,6 +167,15 @@ export function SignVideo({
               </span>
             </div>
           )}
+
+          {/* Optimistic lookup badge - shown for words loaded from SignBSL but not in dictionary */}
+          {isOptimistic && !hasError && videoUrl && (
+            <div className="absolute right-1.5 bottom-1.5 sm:right-2 sm:bottom-2 z-20">
+              <span className="px-1.5 py-0.5 text-[8px] sm:text-[10px] font-medium bg-amber-500/90 text-white rounded-full">
+                SignBSL
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Gloss label and external link */}
@@ -214,9 +205,9 @@ export function SignVideo({
             </svg>
           </button>
         </div>
-        {isUnknown && (
-          <p className="text-[10px] sm:text-xs text-muted-foreground">
-            Not in dictionary
+        {isOptimistic && (
+          <p className="text-[10px] sm:text-xs text-amber-600 dark:text-amber-400">
+            {hasError ? 'Not available on SignBSL' : 'From SignBSL'}
           </p>
         )}
       </CardContent>

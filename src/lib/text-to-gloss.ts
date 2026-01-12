@@ -7,12 +7,13 @@
 
 import { tokenize, removeStopWords, lemmatize, detectQuestionType, isQuestion } from './tokenizer';
 import { applyBSLWordOrder, GrammarContext, explainBSLOrder } from './grammar-rules';
-import { wordToGloss, getSignEntry, getSearchUrl, SignEntry } from './gloss-dictionary';
+import { wordToGloss, getSignEntry, getSearchUrl, SignEntry, createOptimisticSignEntry } from './gloss-dictionary';
 
 export interface GlossResult {
   gloss: string;
   signEntry: SignEntry | null;
   isUnknown: boolean;
+  isOptimistic: boolean;
   searchUrl: string;
   originalWord: string;
 }
@@ -74,10 +75,15 @@ export function translateToBSL(sentence: string): TranslationResult {
     const originalPair = wordGlossPairs.find(p => p.gloss.toUpperCase() === gloss);
     const originalWord = originalPair?.word || gloss.toLowerCase();
 
+    // If not in dictionary, try optimistic lookup from SignBSL
+    const isInDictionary = signEntry !== null;
+    const effectiveSignEntry = signEntry ?? createOptimisticSignEntry(originalWord);
+
     return {
       gloss,
-      signEntry,
-      isUnknown: signEntry === null,
+      signEntry: effectiveSignEntry,
+      isUnknown: !isInDictionary,
+      isOptimistic: !isInDictionary,
       searchUrl: getSearchUrl(gloss.toLowerCase()),
       originalWord,
     };
